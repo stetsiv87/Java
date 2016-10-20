@@ -15,6 +15,7 @@ public class Array2
     private static int count = 1;
     private static int[] iStep = {2, 2, -2, -2, 1, -1, 1, -1};
     private static int[] jStep = {1, -1, -1, 1, -2, -2, 2, 2};
+
     private static int k;
     private static int[] minStep = {8, 0, 0};  // {<кількість валідних ходів з поточної позиції>, <індекс і>, <індекс j>}
 
@@ -37,7 +38,7 @@ public class Array2
         desk[i][j] = 1;
 
         /*  */
-        for (count = 2; count <= 4; count++)
+        for (count = 2; count <= 64; count++)
         {
             minStep[0] = 8;
 
