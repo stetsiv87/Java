@@ -13,8 +13,11 @@ public class Array2
     private static int i = 0;
     private static int j = 0;
     private static int count = 1;
-    private static int[] iStep = {2, 2, -2, -2, 1, -1, 1, -1};
-    private static int[] jStep = {1, -1, -1, 1, -2, -2, 2, 2};
+    private static int[] iStep = {2, 1, -2, -2, 2, -1, 1, -1};
+    private static int[] jStep = {1, -2, -1, 1, -1, -2, 2, 2};
+
+    static int iStep_selected;
+    static int  jStep_selected;
 
     private static int k;
     private static int[] minStep = {8, 0, 0};  // {<кількість валідних ходів з поточної позиції>, <індекс і>, <індекс j>}
@@ -30,7 +33,6 @@ public class Array2
             }
         }
 
-
         /* Заповнюємо масив "ходом коня" використовуючи метод checkStep() */
         i = 0;
         j = 0;
@@ -42,7 +44,12 @@ public class Array2
         {
             minStep[0] = 8;
 
-            System.out.println("Current position indexes: i= " + i + ";  j= " + j + "\n");
+            System.out.println("\n"+"Current position: i= " + i + ";  j= " + j + "\n");
+            showStep(i,j);
+            System.out.println("\n");
+
+
+
             for (k = 0; k < 8; k++)
             {
              /* перевірки чи хід коня валідний, не за межами дошки */
@@ -51,46 +58,35 @@ public class Array2
                         0 <= (j + jStep[k]) && (j + jStep[k]) < boardSize &&
                         desk[i + iStep[k]][j + jStep[k]] == 0 &&
                         CheckHS(i + iStep[k], j + jStep[k]) <= minStep[0])
+
                 {
+                   // System.out.println("result of function: " +CheckHS(i  + iStep[k] , j + jStep[k]) + "<= minStep " +  minStep[0]  );
 
-//                        System.out.println("\n");
+                    System.out.println("Number of cycle " + k + ":   валідний хід iStep = " + iStep[k] + "    jStep = " + jStep[k]);
 
-                       System.out.println("Number of cycle " + k + ":   валідний хід iStep = " + iStep[k] + "    jStep = " + jStep[k]);
-
-
-//
-                      // System.out.println("Value of iStep massive = " + iStep[k]);
-                      // System.out.println("Value of jStep massive = " + jStep[k]);
-
-                       minStep[0] = CheckHS(i + iStep[k], j + jStep[k]);
-//                        System.out.println("кількість ходів з координат " + minStep[0]);
+                    minStep[0] = CheckHS(i + iStep[k], j + jStep[k]);
+                    System.out.println(minStep[0]);
+//                       System.out.println("кількість ходів з координат " + minStep[0]);
                     minStep[1] = i + iStep[k];
                     minStep[2] = j + jStep[k];
-                } else
-                {
-                       System.out.println("Number of cycle " + k + ":   не валідний хід ");
-
+                    iStep_selected = iStep[k];
+                    jStep_selected = jStep[k];
+                } else {
+                    System.out.println("Number of cycle " + k + ":   не валідний хід ");
                 }
             }
 
+            System.out.println("\n"+"Вибраний хід iStep " + iStep_selected + "    jStep = " + jStep_selected);
 
             i = minStep[1];
             j = minStep[2];
-            System.out.println("\n");
-            System.out.println("вибраний хід  " +"і = " + i + "  j=  " + j);
 
-            showStep(i,j);
+            System.out.println("\n");
 
             desk[i][j] = count;
 
-            //System.out.println(desk[i][j]);
-
-
-            System.out.println(i + " " + j);
-            System.out.println("\n");
         }
     }
-
 
     /* Выводим массив на печать */
 
@@ -101,43 +97,29 @@ public class Array2
         {
             for (j = 0; j < boardSize; j++)
             {
-//                if (desk[i][j] == 0)
-//                {
-//                    System.out.print("   X");
-//                } else
-//                {
                 System.out.print(desk[i][j] + "\t");
-                // }
             }
             System.out.println();
         }
-       // System.out.println("y,x = "+ y+" "+x);
     }
 
+    /* Метод ChechHS(int, int) підраховує кількість можливих ходів на вільні клітинки з заданими координатами */
 
-
-
-
-    /* Метод ChechHS(int, int) подсчитывает количество
-     * возможных ходов на пустые клетки из квадрата с
-     * заданными координатами
-     */
     private static int CheckHS (int i, int j){
         int  steps = 0;
         int n;
 
         for (n=0; n<8; n++){
+            // визначення кількісті валідних степів
             if (0<=(i+iStep[n]) && (i+iStep[n])<boardSize && 0<=(j+jStep[n]) &&
-                    (j+jStep[n])<boardSize && desk[i+iStep[n]][j+jStep[n]]==0){
+                   (j+jStep[n])<boardSize && desk[i+iStep[n]][j+jStep[n]]==0)
+            {
                 steps++;
             }
         }
         return steps;
     }
-
-
-
-    }
+}
 
 
 
