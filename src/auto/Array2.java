@@ -40,15 +40,13 @@ public class Array2
         desk[i][j] = 1;
 
         /*  */
-        for (count = 2; count <= 64; count++)
+        for (count = 2; count <= 65; count++)
         {
             minStep[0] = 8;
 
             System.out.println("\n"+"Current position: i= " + i + ";  j= " + j + "\n");
             showStep(i,j);
             System.out.println("\n");
-
-
 
             for (k = 0; k < 8; k++)
             {
@@ -62,7 +60,8 @@ public class Array2
                 {
                    // System.out.println("result of function: " +CheckHS(i  + iStep[k] , j + jStep[k]) + "<= minStep " +  minStep[0]  );
 
-                    System.out.println("Number of cycle " + k + ":   валідний хід iStep = " + iStep[k] + "    jStep = " + jStep[k]);
+                    System.out.println("Можливі ходи:");
+                    System.out.println( "Number of cycle " + k + ":   валідний хід iStep = " + iStep[k] + "    jStep = " + jStep[k]);
 
                     minStep[0] = CheckHS(i + iStep[k], j + jStep[k]);
                     System.out.println(minStep[0]);
@@ -72,11 +71,11 @@ public class Array2
                     iStep_selected = iStep[k];
                     jStep_selected = jStep[k];
                 } else {
-                    System.out.println("Number of cycle " + k + ":   не валідний хід ");
+                    //System.out.println("Number of cycle " + k + ":   не валідний хід ");
                 }
             }
 
-            System.out.println("\n"+"Вибраний хід iStep " + iStep_selected + "    jStep = " + jStep_selected);
+            System.out.println("\n"+"Вибраний хід: iStep " + iStep_selected + "    jStep = " + jStep_selected);
 
             i = minStep[1];
             j = minStep[2];
