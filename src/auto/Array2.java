@@ -2,9 +2,6 @@ package auto;
 
 import javax.sound.midi.Soundbank;
 
-/**
- * Created by Yura on 18.10.2016.
- */
 public class Array2
 {
 
@@ -40,11 +37,11 @@ public class Array2
         desk[i][j] = 1;
 
         /*  */
-        for (count = 2; count <= 65; count++)
+        for (count = 2; count < 66; count++)
         {
             minStep[0] = 8;
 
-            System.out.println("\n"+"Current position: i= " + i + ";  j= " + j + "\n");
+            System.out.println("Current position: i= " + i + ";  j= " + j + "\n");
             showStep(i,j);
             System.out.println("\n");
 
@@ -55,7 +52,7 @@ public class Array2
                 if (0 <= (i + iStep[k]) && (i + iStep[k]) < boardSize &&
                         0 <= (j + jStep[k]) && (j + jStep[k]) < boardSize &&
                         desk[i + iStep[k]][j + jStep[k]] == 0 &&
-                        CheckHS(i + iStep[k], j + jStep[k]) <= minStep[0])
+                        checkStep(i + iStep[k], j + jStep[k]) <= minStep[0])
 
                 {
                    // System.out.println("result of function: " +CheckHS(i  + iStep[k] , j + jStep[k]) + "<= minStep " +  minStep[0]  );
@@ -63,7 +60,7 @@ public class Array2
                     System.out.println("Можливі ходи:");
                     System.out.println( "Number of cycle " + k + ":   валідний хід iStep = " + iStep[k] + "    jStep = " + jStep[k]);
 
-                    minStep[0] = CheckHS(i + iStep[k], j + jStep[k]);
+                    minStep[0] = checkStep(i + iStep[k], j + jStep[k]);
                     System.out.println(minStep[0]);
 //                       System.out.println("кількість ходів з координат " + minStep[0]);
                     minStep[1] = i + iStep[k];
@@ -75,7 +72,8 @@ public class Array2
                 }
             }
 
-            System.out.println("\n"+"Вибраний хід: iStep " + iStep_selected + "    jStep = " + jStep_selected);
+            System.out.println("Вибраний хід: iStep " + iStep_selected + "    jStep = " + jStep_selected);
+            System.out.println("======================================================================================================================");
 
             i = minStep[1];
             j = minStep[2];
@@ -87,7 +85,7 @@ public class Array2
         }
     }
 
-    /* Выводим массив на печать */
+    /* Друкуємо масив */
 
     private static void showStep(int i, int j)
     {
@@ -102,9 +100,9 @@ public class Array2
         }
     }
 
-    /* Метод ChechHS(int, int) підраховує кількість можливих ходів на вільні клітинки з заданими координатами */
+    /* Метод checkStep (int, int) підраховує кількість можливих ходів на вільні клітинки з заданими координатами */
 
-    private static int CheckHS (int i, int j){
+    private static int checkStep (int i, int j){
         int  steps = 0;
         int n;
 
